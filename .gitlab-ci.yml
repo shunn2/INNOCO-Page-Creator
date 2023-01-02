@@ -15,7 +15,8 @@ build-dev:
   script:
       - npm i --cache node_modules
       - npm run build
-      - ls -al
+      - ls -al .next
+      - mv .next dist
   artifacts:
       name: '$CI_JOB_NAME-$CI_COMMIT_REF_NAME'
       when: on_success
