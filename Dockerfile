@@ -4,7 +4,7 @@ MAINTAINER Cloudtechteam <sgs_ct_t@smilegate.com>
 
 USER root
 
-RUN mkdir /stove/deploy/{project}
+RUN mkdir -p /stove/deploy/{project}
 
 ADD . /stove/deploy/{project}
 
