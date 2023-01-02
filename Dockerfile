@@ -13,7 +13,7 @@ RUN cd /stove/deploy/{project}/ && \
     npm install && \
     npm run build
 
-ENV HOST 0.0.0.0
+WORKDIR /stove/deploy/{project}
 
 EXPOSE 3000
 
