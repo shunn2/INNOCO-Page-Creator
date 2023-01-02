@@ -8,11 +8,6 @@ RUN mkdir -p /stove/deploy/{project}
 
 ADD . /stove/deploy/{project}
 
-RUN chown -R stove:stove /stove && \
-    chmod -R 744 /stove/deploy
-
-USER stove
-
 RUN cd /stove/deploy/{project}/ && \
     npm cache clean --force && \
     npm install && \
