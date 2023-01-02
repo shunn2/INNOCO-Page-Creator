@@ -6,7 +6,7 @@ include:
     ref: master
     file:
     - "/build/.build_common.yml"
-    - "/front/build/.upload-common.yml"
+    - "/build/.publish_common.yml"    
 
 build-dev:
   stage: build
@@ -23,3 +23,11 @@ build-dev:
       expire_in: 30 min
       paths:
           - dist
+
+publish:
+  stage: publish
+  extends:
+    - .publish_common
+  variables:
+    ENV: "dev"
+    IMAGE_NAME: "innoco-page-creator"
