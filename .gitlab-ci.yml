@@ -1,16 +1,26 @@
 stages:
   - publish
+  - deploy_dev
 
 include:
   - project: 'sgsinfra/gitlab-ci-template'
     ref: master
     file:
-    - "/build/.publish_common.yml"    
+    - "/build/.publish_common.yml"
+    - "/deploy/.deploy_common.yml"    
 
 publish:
   stage: publish
   extends:
     - .publish_common
+  variables:
+    ENV: "dev"
+    IMAGE_NAME: "innoco-page-creator"
+
+deploy_dev:
+  stage: deploy_dev
+  extends:
+    - .deploy_common
   variables:
     ENV: "dev"
     IMAGE_NAME: "innoco-page-creator"
