@@ -28,7 +28,7 @@ export default function middleware(req: NextRequest) {
     process.env.NODE_ENV === 'production'
       ? hostname.replace(`.innoco-page.onstove`, '')
       : // .replace(`.platformize.vercel.app`, '')
-        hostname.replace(`localhost:3000`, '');
+        hostname.replace(`.localhost:3000`, '');
 
   // rewrites for app pages
   if (currentHost == 'app') {
@@ -46,7 +46,7 @@ export default function middleware(req: NextRequest) {
   }
 
   // rewrite everything else to `/_sites/[site] dynamic route
-  url.pathname = `${currentHost}${url.pathname}`;
+  url.pathname = `/_sites/${currentHost}${url.pathname}`;
 
   return NextResponse.rewrite(url);
 }
