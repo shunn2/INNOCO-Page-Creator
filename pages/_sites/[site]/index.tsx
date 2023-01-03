@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 const Index = ({ wildcard }: any) => {
   const router = useRouter();
-  //console.log(router.pathname);
+  console.log(wildcard);
   return <h1>{wildcard}</h1>;
 };
 
