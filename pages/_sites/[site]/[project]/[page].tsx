@@ -14,7 +14,7 @@ const Index = (props: any) => {
 
 export async function getServerSideProps(context: any) {
   const params = context.params;
-  const wildcard = params.site;
+  const wildcard = context.req.headers.host.split('.')[0];
   const project = params.project;
   const page = params.page;
   return { props: { wildcard, project, page } };
