@@ -1,0 +1,72 @@
+{
+  "title": "abcd",
+  "main": [
+    {
+      "id": "1",
+      "type": "section",
+      "tag": "div",
+      "style": {
+        "width": "50%",
+        "height": "200px",
+        "border": "1px solid white",
+        "background-color": "pink",
+        "color": "black"
+      },
+      "content": "parent",
+      "class": {
+        "flex": true
+      },
+      "image": null,
+      "children": [
+        {
+          "id": "box_1",
+          "type": "box",
+          "tag": "div",
+          "style": {
+            "border": "1px solid white",
+            "height": "100px",
+            "background-color": "black",
+            "color": "white"
+          },
+          "content": "child",
+          "class": {},
+          "image": null,
+          "children": []
+        },
+        {
+          "id": "box_2",
+          "type": "box",
+          "tag": "div",
+          "style": {
+            "height": "100px",
+            "background-color": "black",
+            "color": "white"
+          },
+          "content": "child2",
+          "class": {},
+          "image": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "type": "section",
+      "tag": "div",
+      "style": {
+        "width": "50%",
+        "height": "100px",
+        "border": "1px solid white",
+        "background-color": "pink",
+        "color": "black"
+      },
+      "content": "parent2",
+      "class": {
+        "flex": true
+      },
+      "image": null,
+      "children": []
+    }
+  ],
+  "sectionOrder": ["1", "2"]
+}
