@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import path from 'path';
-import fsPromises from 'fs/promises';
+import React, { useState, useEffect } from "react";
+import path from "path";
+import fsPromises from "fs/promises";
 const Index = (props) => {
   const wildcard = props.wildcard;
   const project = props.project;
@@ -17,9 +17,12 @@ const Index = (props) => {
         className: el.content,
         style: el.style,
       },
-      t.map((c) => (typeof c === 'string' ? c : <Renderer el={c} key={c.id} />))
+      t.map((c) => (typeof c === "string" ? c : <Renderer el={c} key={c.id} />))
     );
   };
+  useEffect(() => {
+    console.log("ci cd test");
+  }, []);
   return (
     <div>
       <h1>
@@ -34,7 +37,7 @@ const Index = (props) => {
 
 export async function getServerSideProps(context) {
   const params = context.params;
-  const wildcard = context.req.headers.host.split('.')[0];
+  const wildcard = context.req.headers.host.split(".")[0];
   const project = params.project;
   const page = params.page;
 
