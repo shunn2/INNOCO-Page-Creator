@@ -1,5 +1,11 @@
 import axios from "axios";
 
+interface GetPageInfoProps {
+  loginId: string;
+  projectName: string;
+  pageName: string;
+}
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const HEADERS = {
   "Cache-Control": "no-cache",
@@ -14,7 +20,7 @@ const createAxiosWithoutToken = () => {
 };
 
 class Api {
-  async getPageInfo(loginId, projectName, pageName) {
+  async getPageInfo({ loginId, projectName, pageName }: GetPageInfoProps) {
     const { data } = await createAxiosWithoutToken().get(
       `/${loginId}/projects/${projectName}/pages/${pageName}`
     );
