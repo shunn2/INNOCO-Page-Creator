@@ -22,8 +22,8 @@ interface createElementProps {
 
 const Index = (props) => {
   const wildcard = props.wildcard;
-  const project = props.project;
-  const page = props.page;
+  const projectName = props.project;
+  const pageName = props.page;
 
   const [pageInformation, setPageInformation] = useState<PageInformation>({
     pageId: "",
@@ -32,7 +32,11 @@ const Index = (props) => {
   });
 
   const fetchPageInfo = async () => {
-    const data = await api.getPageInfo(wildcard, project, page);
+    const data = await api.getPageInfo({
+      loginId: wildcard,
+      projectName,
+      pageName,
+    });
     setPageInformation({ ...data, pageJson: JSON.parse(data.pageJson) });
   };
 
