@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CreateSection from "../../../../components/createElement/createSection";
+import CreateGuestBook from "../../../../components/dataComponent/guestBook";
 import api from "../../../api/Api";
 
 interface PageJSON {
@@ -16,8 +17,6 @@ interface PageInformation {
 
 interface createElementProps {
   element: any;
-  elementIdx: number;
-  sectionId: string;
 }
 
 const Index = (props) => {
@@ -40,11 +39,7 @@ const Index = (props) => {
     setPageInformation({ ...data, pageJson: JSON.parse(data.pageJson) });
   };
 
-  const createChild = ({
-    element,
-    elementIdx,
-    sectionId,
-  }: createElementProps) => {
+  const createChild = ({ element }: createElementProps) => {
     const props = {
       ...element.props,
       id: element.id,
@@ -55,21 +50,13 @@ const Index = (props) => {
     return React.createElement(element.tag, props, element.content);
   };
 
-  const createParent = ({
-    element,
-    elementIdx,
-    sectionId,
-  }: createElementProps) => {
+  const createParent = ({ element }: createElementProps) => {
     const props = {
       ...element.parentProps,
       id: `parent_${element.id}`,
       key: `parent_${element.id}`,
     };
-    return React.createElement(
-      "div",
-      props,
-      createChild({ element, elementIdx, sectionId })
-    );
+    return React.createElement("div", props, createChild({ element }));
   };
 
   useEffect(() => {
@@ -81,18 +68,26 @@ const Index = (props) => {
       {pageInformation.pageJson.sectionOrder.map((sectionId, sectionIdx) => {
         return (
           <div key={sectionId}>
-            <CreateSection
-              sectionId={sectionId}
-              mainData={pageInformation.pageJson.main}
-            >
-              {pageInformation.pageJson.main[sectionId].children.map(
-                (element, elementIdx) => (
-                  <div key={element.id}>
-                    {createParent({ element, elementIdx, sectionId })}
-                  </div>
-                )
-              )}
-            </CreateSection>
+            {pageInformation.pageJson.main[sectionId].dataComponent ===
+            "guestBook" ? (
+              <CreateGuestBook
+                dataComponent={pageInformation.pageJson.main[sectionId]}
+                ownerLoginId={wildcard}
+                projectName={projectName}
+                pageName={pageName}
+              />
+            ) : (
+              <CreateSection
+                sectionId={sectionId}
+                mainData={pageInformation.pageJson.main}
+              >
+                {pageInformation.pageJson.main[sectionId].children.map(
+                  (element, elementIdx) => (
+                    <div key={element.id}>{createParent({ element })}</div>
+                  )
+                )}
+              </CreateSection>
+            )}
           </div>
         );
       })}
