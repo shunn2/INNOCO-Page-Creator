@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CreateSection from "../../../../components/createElement/createSection";
+import CreateGuestBook from "../../../../components/dataComponent/guestBook";
 import api from "../../../api/Api";
 
 interface PageJSON {
@@ -67,16 +68,26 @@ const Index = (props) => {
       {pageInformation.pageJson.sectionOrder.map((sectionId, sectionIdx) => {
         return (
           <div key={sectionId}>
-            <CreateSection
-              sectionId={sectionId}
-              mainData={pageInformation.pageJson.main}
-            >
-              {pageInformation.pageJson.main[sectionId].children.map(
-                (element, elementIdx) => (
-                  <div key={element.id}>{createParent({ element })}</div>
-                )
-              )}
-            </CreateSection>
+            {pageInformation.pageJson.main[sectionId].dataComponent ===
+            "guestBook" ? (
+              <CreateGuestBook
+                dataComponent={pageInformation.pageJson.main[sectionId]}
+                ownerLoginId={wildcard}
+                projectName={projectName}
+                pageName={pageName}
+              />
+            ) : (
+              <CreateSection
+                sectionId={sectionId}
+                mainData={pageInformation.pageJson.main}
+              >
+                {pageInformation.pageJson.main[sectionId].children.map(
+                  (element, elementIdx) => (
+                    <div key={element.id}>{createParent({ element })}</div>
+                  )
+                )}
+              </CreateSection>
+            )}
           </div>
         );
       })}
