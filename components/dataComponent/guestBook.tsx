@@ -15,12 +15,12 @@ const CreateGuestBook = ({
 
   const handleClick = () => {
     const postData = {
-      name: "성훈",
-      contents: userInput,
-      date: Date.now(),
+      nickname: "성훈",
+      content: userInput,
+      date: new Date(),
     };
     axios
-      .post(`${URL}/contents`, {
+      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/data`, {
         ownerLoginId,
         projectName,
         pageName,
@@ -34,7 +34,7 @@ const CreateGuestBook = ({
         id: userInput,
         tag: "div",
         content: userInput,
-        date: Date.now(),
+        date: new Date().toUTCString(),
         nickname: "익명",
       });
       return cur;
