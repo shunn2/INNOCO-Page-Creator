@@ -2,8 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import * as Styled from "./styled";
 
-const URL = "http://10.5.26.54:8080";
-
 const CreateGuestBook = ({
   dataComponent,
   ownerLoginId,
