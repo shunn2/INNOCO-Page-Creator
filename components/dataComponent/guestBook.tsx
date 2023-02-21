@@ -2,8 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import * as Styled from "./styled";
 
-const URL = "http://10.5.26.54:8080";
-
 const CreateGuestBook = ({
   dataComponent,
   ownerLoginId,
@@ -15,12 +13,12 @@ const CreateGuestBook = ({
 
   const handleClick = () => {
     const postData = {
-      name: "성훈",
-      contents: userInput,
-      date: Date.now(),
+      nickname: "성훈",
+      content: userInput,
+      date: new Date(),
     };
     axios
-      .post(`${URL}/contents`, {
+      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/data`, {
         ownerLoginId,
         projectName,
         pageName,
@@ -34,7 +32,7 @@ const CreateGuestBook = ({
         id: userInput,
         tag: "div",
         content: userInput,
-        date: Date.now(),
+        date: new Date().toUTCString(),
         nickname: "익명",
       });
       return cur;
