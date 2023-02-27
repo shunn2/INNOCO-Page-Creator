@@ -13,7 +13,7 @@ const CreateGuestBook = ({
 
   const handleClick = () => {
     const postData = {
-      nickname: "성훈",
+      nickname: "익명",
       content: userInput,
       date: new Date(),
     };
@@ -28,7 +28,7 @@ const CreateGuestBook = ({
       .then((res) => console.log(res));
     setData((prev) => {
       const cur = JSON.parse(JSON.stringify(prev));
-      cur.children[0].children.push({
+      cur.children[0].children.unshift({
         id: userInput,
         tag: "div",
         content: userInput,
@@ -46,12 +46,10 @@ const CreateGuestBook = ({
 
   const handleTimeToDate = (timeStamp) => {
     const date = new Date(timeStamp);
-    return `${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일`;
+    return `${date.getFullYear()}년 ${
+      date.getMonth() + 1
+    }월 ${date.getDate()}일`;
   };
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <div {...data.sectionProps}>
@@ -59,17 +57,6 @@ const CreateGuestBook = ({
         style={{ width: data.children[1].props.style.width }}
       >
         <h4 className="my-3">{data.children[0].children.length}개의 방명록</h4>
-        {data.children[0].children.map((comment, idx) => (
-          <div key={comment.id} style={{ margin: "12px 0" }}>
-            <Styled.WriterInfo>
-              <Styled.WriterName>{comment.nickname}</Styled.WriterName>
-              <Styled.WriteDate>
-                {handleTimeToDate(comment.date)}
-              </Styled.WriteDate>
-            </Styled.WriterInfo>
-            <div>{comment.content}</div>
-          </div>
-        ))}
       </Styled.GuestContainer>
       <div {...data.children[1].parentProps}>
         <textarea
@@ -83,6 +70,17 @@ const CreateGuestBook = ({
             작성
           </button>
         </div>
+        {data.children[0].children.map((comment, idx) => (
+          <div key={comment.id} style={{ margin: "12px 0" }}>
+            <Styled.WriterInfo>
+              <Styled.WriterName>{comment.nickname}</Styled.WriterName>
+              <Styled.WriteDate>
+                {handleTimeToDate(comment.date)}
+              </Styled.WriteDate>
+            </Styled.WriterInfo>
+            <div>{comment.content}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
