@@ -71,7 +71,7 @@ const CreateGuestBook = ({
           </button>
         </div>
         {data.children[0].children.map((comment, idx) => (
-          <div key={comment.id} style={{ margin: "12px 0" }}>
+          <div key={comment.id} style={{ margin: "12px 0", color: "black" }}>
             <Styled.WriterInfo>
               <Styled.WriterName>{comment.nickname}</Styled.WriterName>
               <Styled.WriteDate>
