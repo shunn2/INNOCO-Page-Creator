@@ -56,7 +56,9 @@ const CreateGuestBook = ({
       <Styled.GuestContainer
         style={{ width: data.children[1].props.style.width }}
       >
-        <h4 className="my-3">{data.children[0].children.length}개의 방명록</h4>
+        <h4 className="my-3" style={{ color: "black" }}>
+          {data.children[0].children.length}개의 방명록
+        </h4>
       </Styled.GuestContainer>
       <div {...data.children[1].parentProps}>
         <textarea
