@@ -118,7 +118,6 @@ const NotFound = styled.div<{ darkmode }>`
 
 export async function getServerSideProps(context) {
   const params = context.params;
-  console.log(params);
 
   const wildcard = context.req.headers.host.split(".")[0];
   const project = params.project[0];

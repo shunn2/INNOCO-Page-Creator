@@ -18,15 +18,13 @@ const CreateGuestBook = ({
       content: userInput,
       date: new Date(),
     };
-    axios
-      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/data`, {
-        ownerLoginId,
-        projectName,
-        pageName,
-        type: "GUESTBOOK",
-        data: postData,
-      })
-      .then((res) => console.log(res));
+    axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/data`, {
+      ownerLoginId,
+      projectName,
+      pageName,
+      type: "GUESTBOOK",
+      data: postData,
+    });
     setData((prev) => {
       const cur = JSON.parse(JSON.stringify(prev));
       cur.children[0].children.unshift({
