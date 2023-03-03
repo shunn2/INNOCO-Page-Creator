@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import CreateSection from "../../../../components/createElement/createSection";
 import CreateGuestBook from "../../../../components/dataComponent/guestBook";
 import api from "../../../api/Api";
@@ -21,6 +22,7 @@ interface createElementProps {
 }
 
 const Index = (props) => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const router = useRouter();
   const wildcard = props.wildcard;
   const projectName = props.project;
@@ -38,9 +40,9 @@ const Index = (props) => {
       projectName,
       pageName,
     });
-    console.log("data", data);
-
-    if (!data) return;
+    if (!data) {
+      return;
+    }
 
     setPageInformation({ ...data, pageJson: JSON.parse(data.pageJson) });
   };
@@ -66,12 +68,16 @@ const Index = (props) => {
   };
 
   useEffect(() => {
+    setIsDarkMode(
+      window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+    );
     fetchPageInfo();
   }, []);
 
   return (
     <div>
-      {pageInformation &&
+      {pageInformation.pageId.length ? (
         pageInformation.pageJson.sectionOrder.map((sectionId, sectionIdx) => {
           return (
             <div key={sectionId}>
@@ -97,16 +103,26 @@ const Index = (props) => {
               )}
             </div>
           );
-        })}
+        })
+      ) : (
+        <NotFound darkmode={isDarkMode}>Page Not Found</NotFound>
+      )}
     </div>
   );
 };
 
+const NotFound = styled.div<{ darkmode }>`
+  font-size: 45px;
+  color: ${(props) => (props.darkmode ? "white" : "black")};
+`;
+
 export async function getServerSideProps(context) {
   const params = context.params;
+  console.log(params);
+
   const wildcard = context.req.headers.host.split(".")[0];
-  const project = params.project;
-  const page = params.page;
+  const project = params.project[0];
+  const page = params.project[1] || "";
 
   return { props: { wildcard, project, page } };
 }
