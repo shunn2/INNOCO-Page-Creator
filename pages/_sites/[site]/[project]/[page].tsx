@@ -38,6 +38,8 @@ const Index = (props) => {
       projectName,
       pageName,
     });
+    console.log("data", data);
+
     if (!data) return;
 
     setPageInformation({ ...data, pageJson: JSON.parse(data.pageJson) });

@@ -19,3 +19,10 @@ export const WriterName = styled.div`
 export const WriteDate = styled.div`
   color: #aaa;
 `;
+
+export const NicknameWrapper = styled.input`
+  color: black;
+  margin-right: 12px;
+  width: 100px;
+  padding: 0 6px;
+`;

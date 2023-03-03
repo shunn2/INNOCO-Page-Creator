@@ -9,11 +9,12 @@ const CreateGuestBook = ({
   pageName,
 }) => {
   const [data, setData] = useState(dataComponent);
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("익명");
 
   const handleClick = () => {
     const postData = {
-      nickname: "익명",
+      nickname,
       content: userInput,
       date: new Date(),
     };
@@ -33,7 +34,7 @@ const CreateGuestBook = ({
         tag: "div",
         content: userInput,
         date: new Date().toUTCString(),
-        nickname: "익명",
+        nickname,
       });
       return cur;
     });
@@ -56,7 +57,9 @@ const CreateGuestBook = ({
       <Styled.GuestContainer
         style={{ width: data.children[1].props.style.width }}
       >
-        <h4 className="my-3">{data.children[0].children.length}개의 방명록</h4>
+        <h4 className="my-3" style={{ color: "black" }}>
+          {data.children[0].children.length}개의 방명록
+        </h4>
       </Styled.GuestContainer>
       <div {...data.children[1].parentProps}>
         <textarea
@@ -66,12 +69,15 @@ const CreateGuestBook = ({
           onChange={handleUserInput}
         />
         <div {...data.children[2].parentProps}>
+          <Styled.NicknameWrapper
+            onChange={(e) => setNickname(e.target.value)}
+          />
           <button {...data.children[2].props} onClick={() => handleClick()}>
             작성
           </button>
         </div>
         {data.children[0].children.map((comment, idx) => (
-          <div key={comment.id} style={{ margin: "12px 0" }}>
+          <div key={comment.id} style={{ margin: "12px 0", color: "black" }}>
             <Styled.WriterInfo>
               <Styled.WriterName>{comment.nickname}</Styled.WriterName>
               <Styled.WriteDate>
